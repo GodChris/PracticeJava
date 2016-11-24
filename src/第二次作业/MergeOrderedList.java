@@ -1,3 +1,4 @@
+package 第二次作业;
 import java.util.Scanner;
 
 /**
