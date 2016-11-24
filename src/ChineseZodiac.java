@@ -2,15 +2,22 @@
  * Created by God of Chris on 2016/10/23 0023.
  */
 
+import javafx.animation.PathTransition;
+import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.util.Scanner;
 
@@ -66,6 +73,18 @@ public class ChineseZodiac extends Application {
                 Y - R / 1.75 * Math.cos(Math.toRadians(15 + year % 12 * 30)));
         pointer.setStroke(Color.BLUE);
         pane.getChildren().add(pointer);
+
+        //create a path transition
+        PathTransition pt=new PathTransition();
+        pt.setDuration(Duration.millis(4000));
+        pt.setNode(pointer);
+        pt.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
+        pt.setCycleCount(Timeline.INDEFINITE);
+        pt.setAutoReverse(true);
+        pt.play();
+
+        circle.setOnMousePressed(e -> pt.pause());
+        circle.setOnMouseReleased(e -> pt.play());
 
         Scene scene=new Scene(pane,600,600);
         primaryStage.setTitle("showCircleZodiac");
